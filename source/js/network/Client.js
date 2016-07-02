@@ -1,8 +1,19 @@
+/**
+ * Handle communication with the server at an event level.
+ *
+ * ```
+ * let client = Client.create();
+ * client.connect();
+ * client.send('event-name', { 'hello': 'world' });
+ * client.on('event-name', handleResponse);
+ * ```
+ */
 'use strict';
 
 let
   EventEmitter  = require('event-emitter-es6'),
-  SocketFactory = require('./SocketFactory')
+  SocketFactory = require('./SocketFactory'),
+  Q             = require('q')
 ;
 
 module.exports = class Client extends EventEmitter
@@ -50,5 +61,9 @@ module.exports = class Client extends EventEmitter
     this.socket.on('connect', this.onConnect.bind(this));
     this.socket.on('disconnect', this.onDisconnect.bind(this));
     this.socket.on('*', this.recieve.bind(this));
+
+    let deferred = Q.defer();
+    this.on('connect', deferred.resolve);
+    return deferred.promise;
   }
 }

@@ -1,5 +1,18 @@
 'use strict';
 
-let client = require('./network/Client').create();
+let GameFactory = require('./Game/GameFactory');
+let game = GameFactory.create();
 
-client.connect();
+game.client.on('connect', () => {
+  console.log('server says hello');
+});
+
+game.on('loaded', () => {
+  console.log('game loaded');
+});
+
+game.on('started', () => {
+  console.log('game started');
+});
+
+game.start();
