@@ -22,8 +22,13 @@ io.on('connection', (socket) => {
     console.log(`[${socket.id}]`, `connected - ${Object.keys(clients).length} players`);
   });
 
+  socket.on('room.create', (data) => {
+    socket.emit('room.created', data);
+    console.log(`created room: ${data.name}`);
+  });
 
-  socket.on('yo', (data) => {
-    console.log(`[${socket.id}]`, data);
+  socket.on('room.join', (data) => {
+    socket.emit('room.joined', data);
+    console.log(`joined room: ${data.name}`);
   });
 });

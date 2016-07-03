@@ -26,11 +26,6 @@ module.exports = class Client extends EventEmitter
     this.url = 'http://localhost';
   }
 
-  static create()
-  {
-    return new Client;
-  }
-
   send(name, data)
   {
     this.socket.emit(name, data);

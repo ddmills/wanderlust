@@ -1,6 +1,6 @@
 /**
- *
- *
+ * Handles loading the game and starting it. Also dispatches
+ * ticks for the game loop.
  */
 'use strict';
 
@@ -13,14 +13,15 @@ let
 module.exports = class Game extends EventEmitter
 {
 
-  constructor(engine, client, canvas)
+  constructor(engine, client, canvas, scene, room)
   {
     super();
 
     this.engine = engine;
     this.client = client;
     this.canvas = canvas;
-    this.loaded = false;
+    this.scene  = scene;
+    this.room   = room;
   }
 
   get supported()
@@ -30,21 +31,12 @@ module.exports = class Game extends EventEmitter
 
   load()
   {
-    let deferred = Q.defer();
-
-    if (this.loaded) {
-      deferred.resolve();
-    } else {
-      this.client
-        .connect()
-        .then(() => {
-          this.loaded = true;
-          this.emit('loaded');
-          deferred.resolve();
-        });
-    }
-
-    return deferred.promise;
+    return this.client.connect()
+      .then(this.room.join('wander'))
+      .then(() => {
+        this.scene.populate();
+        this.emit('loaded');
+      });
   }
 
   startLoop()
@@ -56,11 +48,14 @@ module.exports = class Game extends EventEmitter
   loop()
   {
     this.emit('tick');
+    this.scene.render();
   }
 
   start()
   {
-    this.load().then(this.startLoop.bind(this));
+    this
+      .load()
+      .then(this.startLoop.bind(this));
   }
 
   stop()
