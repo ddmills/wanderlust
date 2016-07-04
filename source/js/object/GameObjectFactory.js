@@ -1,7 +1,8 @@
 'use strict';
 
-let Block = require('./Block');
-let Tree  = require('./Tree');
+let Block  = require('./Block');
+let Tree   = require('./Tree');
+let Ground = require('./Ground');
 
 module.exports = class GameObjectFactory
 {
@@ -16,6 +17,7 @@ module.exports = class GameObjectFactory
 
     this.register('tree', Tree);
     this.register('block', Block);
+    this.register('ground', Ground);
   }
 
   register(name, gameObject)

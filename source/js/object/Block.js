@@ -14,7 +14,6 @@ module.exports = class Block extends Mesh
 
   add(scene)
   {
-    console.log(`add ${this.name} to scene`);
     this.asset = babylon.Mesh.CreateBox('block', 1, scene);
   }
 }

@@ -14,19 +14,6 @@ module.exports = class Scene extends babylon.Scene
     this.engine = engine;
   }
 
-  addGround()
-  {
-    let ground = babylon.Mesh.CreateGround("ground",  100,  100, 2, this);
-    let material = new babylon.StandardMaterial("ground", this);
-
-    material.diffuseColor = c(175, 185, 115);
-    material.specularColor = c(0, 0, 0);
-    material.specularPower = 10;
-
-    ground.material = material;
-    ground.checkCollisions = true;
-  }
-
   addSun()
   {
     let h = new babylon.HemisphericLight('primary', v(.1, 1, .1), this);
@@ -37,11 +24,6 @@ module.exports = class Scene extends babylon.Scene
     h2.intensity = .5;
     h2.specular = c(0, 0, 0);
     h2.diffuse = c(200, 50, 255);
-
-    // let d = new babylon.DirectionalLight("dir", v(0, -0.5, 0.5), this);
-    // d.position = v(0.1, 100, -100);
-    // d.intensity = 0.4;
-    // d.diffuse = c(204, 196, 255);
   }
 
   addPlayerCamera()
@@ -73,7 +55,6 @@ module.exports = class Scene extends babylon.Scene
     sphere.position.z = 1
 
     this.addSun();
-    this.addGround();
     this.addPlayerCamera();
 
     var ssaoRatio = {
