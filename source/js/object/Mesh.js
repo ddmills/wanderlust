@@ -16,6 +16,26 @@ module.exports = class Mesh extends GameObject
     super(name, id);
   }
 
+  set scaling(vector)
+  {
+    this.asset.scaling = vector;
+  }
+
+  get scaling()
+  {
+    return this.asset.scaling;
+  }
+
+  set rotation(vector)
+  {
+    this.asset.rotation = vector;
+  }
+
+  get rotation()
+  {
+    return this.asset.rotation;
+  }
+
   set position(vector)
   {
     this.asset.position = vector;
