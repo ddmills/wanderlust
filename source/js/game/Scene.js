@@ -1,6 +1,8 @@
 let
   Camera  = require('./../Camera'),
-  babylon = require('babylon')
+  babylon = require('babylon'),
+  v       = require('../utilities/Vector'),
+  c       = require('../utilities/Color')
 ;
 
 module.exports = class Scene extends babylon.Scene
@@ -17,8 +19,8 @@ module.exports = class Scene extends babylon.Scene
     let ground = babylon.Mesh.CreateGround("ground",  100,  100, 2, this);
     let material = new babylon.StandardMaterial("ground", this);
 
-    material.diffuseColor = new babylon.Color3(.75, 1, .35);
-    material.specularColor = new babylon.Color3(0, .1, .01);
+    material.diffuseColor = c(175, 185, 115);
+    material.specularColor = c(0, 0, 0);
     material.specularPower = 10;
 
     ground.material = material;
@@ -27,18 +29,29 @@ module.exports = class Scene extends babylon.Scene
 
   addSun()
   {
-    let h = new babylon.HemisphericLight("hemi", new babylon.Vector3(0, 0.5, 0), this);
-    h.intensity = 0.6;
+    let h = new babylon.HemisphericLight('primary', v(.1, 1, .1), this);
+    h.intensity = 1;
+    h.specular = c(255, 255, 255);
 
-    let d = new babylon.DirectionalLight("dir", new babylon.Vector3(0,-0.5,0.5), this);
-    d.position = new babylon.Vector3(0.1,100,-100);
-    d.intensity = 0.4;
-    d.diffuse = babylon.Color3.FromInts(204,196,255);
+    let h2 = new babylon.HemisphericLight('back', v(-.1, -1, -.1), this);
+    h2.intensity = .5;
+    h2.specular = c(0, 0, 0);
+    h2.diffuse = c(200, 50, 255);
+
+    // let d = new babylon.DirectionalLight("dir", v(0, -0.5, 0.5), this);
+    // d.position = v(0.1, 100, -100);
+    // d.intensity = 0.4;
+    // d.diffuse = c(204, 196, 255);
   }
 
   addPlayerCamera()
   {
     this.activeCamera = new Camera(this, this.engine.getRenderingCanvas());
+  }
+
+  add(component)
+  {
+    component.add(this);
   }
 
   populate()
@@ -62,6 +75,23 @@ module.exports = class Scene extends babylon.Scene
     this.addSun();
     this.addGround();
     this.addPlayerCamera();
+
+    var ssaoRatio = {
+      ssaoRatio: 0.5, // Ratio of the SSAO post-process, in a lower resolution
+      combineRatio: 1.0 // Ratio of the combine post-process (combines the SSAO and the scene)
+    };
+
+    var ssao = new babylon.SSAORenderingPipeline("ssao", this, ssaoRatio);
+    ssao.fallOff = 0.000001;
+    ssao.area = 1;
+    ssao.radius = 0.0001;
+    ssao.totalStrength = 1.0;
+    ssao.base = 0.5;
+
+    // Attach camera to the SSAO render pipeline
+    this.postProcessRenderPipelineManager.attachCamerasToRenderPipeline("ssao", this.activeCamera);
+    this.clearColor = c(214, 216, 245);
+    this.ambientColor = c(50, 20, 15);
   }
 
 }
