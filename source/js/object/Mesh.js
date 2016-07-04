@@ -5,11 +5,11 @@
 'use strict';
 
 let
-  Component = require('../component/Component'),
-  babylon   = require('babylon')
+  GameObject = require('./GameObject'),
+  babylon    = require('babylon')
 ;
 
-module.exports = class Mesh extends Component
+module.exports = class Mesh extends GameObject
 {
   constructor(name, id)
   {

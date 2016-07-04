@@ -1,7 +1,7 @@
 'use strict';
 
 let
-  Mesh    = require('../components/Mesh'),
+  Mesh    = require('./Mesh'),
   babylon = require('babylon')
 ;
 
