@@ -1,9 +1,6 @@
 'use strict';
 
-let MeshComponent = require('./components/MeshComponent');
 let Entity = require('./Entity');
-
-let v = require('../utilities/Vector');
 let Random = require('../utilities/Random');
 
 module.exports = class Tree extends Entity
@@ -13,8 +10,6 @@ module.exports = class Tree extends Entity
     super(id);
 
     let random = new Random(this.id);
-
-    console.log('create tree', this.id, random.int(0, 100));
 
     this.position.x = random.int(-50, 50);
     this.position.y = 0;
@@ -31,6 +26,5 @@ module.exports = class Tree extends Entity
     this.scaling.z = scaling;
 
     this.visible = true;
-
   }
 }

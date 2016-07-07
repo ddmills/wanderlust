@@ -1,28 +1,27 @@
 let babylon = require('babylon');
+let Vector = require('./utilities/Vector');
 
 module.exports = class Camera extends babylon.FreeCamera
 {
 
   constructor(scene, canvas)
   {
-    super('FreeCamera', new babylon.Vector3(0, 1, -5), scene);
+    super('FreeCamera', new Vector(0, 1, -5), scene);
 
     this.scene = scene;
     this.canvas = canvas;
 
-    this.lowerRadiusLimit = 1.35;
-    this.upperRadiusLimit = 6;
-    this.wheelPrecision = 100;
     this.checkCollisions = true;
     this.applyGravity = true;
-    this.ellipsoid = new babylon.Vector3(.5, 0.4, .4);
+    this.ellipsoid = new Vector(.25, .4, .25);
+    this.minZ = .1;
 
     this.keysUp = [87]; // W
     this.keysDown = [83]; // S
     this.keysLeft = [65]; // A
     this.keysRight = [68]; // D
 
-    this.speed = 1;
+    this.speed = 1.5;
     this.inertia = 0;
     this.angularSensibility = 300;
 

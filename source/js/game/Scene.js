@@ -1,7 +1,7 @@
 let
   Camera  = require('./../Camera'),
   babylon = require('babylon'),
-  v       = require('../utilities/Vector'),
+  Vector  = require('../utilities/Vector'),
   c       = require('../utilities/Color')
 ;
 
@@ -16,11 +16,11 @@ module.exports = class Scene extends babylon.Scene
 
   addSun()
   {
-    let h = new babylon.HemisphericLight('primary', v(.1, 1, .1), this);
+    let h = new babylon.HemisphericLight('primary', new Vector(.1, 1, .1), this);
     h.intensity = 1;
     h.specular = c(255, 255, 255);
 
-    let h2 = new babylon.HemisphericLight('back', v(-.1, -1, -.1), this);
+    let h2 = new babylon.HemisphericLight('back', new Vector(-.1, -1, -.1), this);
     h2.intensity = .5;
     h2.specular = c(0, 0, 0);
     h2.diffuse = c(200, 50, 255);
@@ -73,6 +73,7 @@ module.exports = class Scene extends babylon.Scene
     this.postProcessRenderPipelineManager.attachCamerasToRenderPipeline("ssao", this.activeCamera);
     this.clearColor = c(214, 216, 245);
     this.ambientColor = c(50, 20, 15);
+    this.collisionsEnabled = true;
   }
 
 }

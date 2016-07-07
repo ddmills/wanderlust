@@ -1,6 +1,6 @@
 'use strict';
 
-let v = require('../utilities/Vector');
+let Vector = require('../utilities/Vector');
 
 module.exports = class Entity
 {
@@ -10,9 +10,9 @@ module.exports = class Entity
     this.id = id;
     this.components = [];
 
-    this.position = v(0, 0, 0);
-    this.rotation = v(0, 0, 0);
-    this.scaling = v(0, 0, 0);
+    this.position = new Vector(0, 0, 0);
+    this.rotation = new Vector(0, 0, 0);
+    this.scaling = new Vector(0, 0, 0);
     this.visible = true;
   }
 

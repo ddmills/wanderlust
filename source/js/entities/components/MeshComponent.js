@@ -7,12 +7,13 @@ let
   v         = require('../../utilities/Vector')
 ;
 
-module.exports = class Mesh extends Component
+module.exports = class MeshComponent extends Component
 {
   constructor(meshName)
   {
     super();
     this.asset = Assets.get(meshName);
+    this.asset.checkCollisions = false;
   }
 
   update()

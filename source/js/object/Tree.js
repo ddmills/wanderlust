@@ -4,7 +4,7 @@ let
   Mesh    = require('./Mesh'),
   babylon = require('babylon'),
   Random  = require('../utilities/Random'),
-  v       = require('../utilities/Vector')
+  Vector  = require('../utilities/Vector')
 ;
 
 module.exports = class Tree extends Mesh
@@ -26,7 +26,7 @@ module.exports = class Tree extends Mesh
     let x = random.int(-50, 50);
     let z = random.int(-50, 50);
 
-    this.position = v(x, 0, z);
+    this.position = new Vector(x, 0, z);
 
     this.rotation.y = random.float * (Math.PI * 2);
     this.rotation.x = random.float * 0.15;
