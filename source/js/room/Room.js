@@ -17,6 +17,7 @@ module.exports = class Room extends EventEmitter
     let deferred = Q.defer();
 
     this.client.send('room.create', { name });
+
     this.client.on('room.created', (data) => {
       this.emit('joined', data);
       deferred.resolve(data);
@@ -28,6 +29,8 @@ module.exports = class Room extends EventEmitter
   join(name)
   {
     let deferred = Q.defer();
+
+    console.log('join', name);
 
     this.client.send('room.join', { name });
     this.client.on('room.joined', (data) => {

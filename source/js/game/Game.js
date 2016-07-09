@@ -34,7 +34,8 @@ module.exports = class Game extends EventEmitter
   {
     return this.client.connect()
       .then(this.assets.load.bind(this.assets))
-      // .then(this.room.join('wander'))
+      .then(this.room.create('wander'))
+      .then(this.room.join('wander'))
       .then(() => {
         this.scene.populate();
         this.emit('loaded');

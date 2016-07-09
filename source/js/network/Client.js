@@ -23,7 +23,6 @@ module.exports = class Client extends EventEmitter
   {
     super();
     this.id = -1;
-    this.url = 'http://localhost';
   }
 
   send(name, data)
@@ -51,7 +50,7 @@ module.exports = class Client extends EventEmitter
 
   connect()
   {
-    this.socket = SocketFactory.create(this.url);
+    this.socket = SocketFactory.create();
 
     this.socket.on('connect', this.onConnect.bind(this));
     this.socket.on('disconnect', this.onDisconnect.bind(this));

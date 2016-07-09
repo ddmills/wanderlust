@@ -9,7 +9,7 @@ module.exports = class SocketFactory
 
   static create(url)
   {
-    let socket = io(url);
+    let socket = io(window.location.host);
 
     let oldHandler = socket.onevent;
 

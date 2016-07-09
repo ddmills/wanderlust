@@ -15,7 +15,7 @@ function handler(request, response) {
 
 function start() {
   let app = http.createServer(handler);
-  app.listen(80);
+  app.listen(process.env.SERVER_PORT);
 
   return app;
 }
