@@ -24,7 +24,7 @@ module.exports = class Loader
     task.onSuccess = (content) => {
       for (let mesh of content.loadedMeshes) {
         mesh.isVisible = false;
-        this.library.register(mesh.name, mesh);
+        this.library.registerMesh(mesh.name, mesh);
       }
     }
 

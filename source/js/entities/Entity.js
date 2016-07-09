@@ -12,7 +12,7 @@ module.exports = class Entity
 
     this.position = new Vector(0, 0, 0);
     this.rotation = new Vector(0, 0, 0);
-    this.scaling = new Vector(0, 0, 0);
+    this.scaling = new Vector(1, 1, 1);
     this.visible = true;
   }
 
@@ -20,6 +20,7 @@ module.exports = class Entity
   {
     component.entity = this;
     this.components.push(component);
+    return this;
   }
 
   update()

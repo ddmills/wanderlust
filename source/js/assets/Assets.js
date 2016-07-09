@@ -10,9 +10,14 @@ module.exports = class Assets
     library = lib;
   }
 
-  static get(name)
+  static mesh(name)
   {
-    return library.get(name);
+    return library.mesh(name);
+  }
+
+  static material(name)
+  {
+    return library.material(name);
   }
 
 }

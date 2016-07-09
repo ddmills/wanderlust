@@ -38,21 +38,21 @@ module.exports = class Scene extends babylon.Scene
 
   populate()
   {
-    for (let i = 0; i < 15; i ++) {
-      let cyl = babylon.Mesh.CreateCylinder("cylinder", i, 1, 1, 12, 1, this, true);
+    // for (let i = 0; i < 15; i ++) {
+    //   let cyl = babylon.Mesh.CreateCylinder("cylinder", i, 1, 1, 12, 1, this, true);
+    //
+    //   let x = (Math.random() - .5) * 20;
+    //   let z = (Math.random() - .5) * 20
+    //
+    //   cyl.position.x = x;
+    //   cyl.position.z = z
+    //   cyl.position.y = .5;
+    //   cyl.checkCollisions = true;
+    // }
 
-      let x = (Math.random() - .5) * 20;
-      let z = (Math.random() - .5) * 20
-
-      cyl.position.x = x;
-      cyl.position.z = z
-      cyl.position.y = .5;
-      cyl.checkCollisions = true;
-    }
-
-    let sphere = babylon.Mesh.CreateSphere("sphere", 16, 1, this);
-    sphere.position.y = 1
-    sphere.position.z = 1
+    // let sphere = babylon.Mesh.CreateSphere("sphere", 16, 1, this);
+    // sphere.position.y = 1
+    // sphere.position.z = 1
 
     this.addSun();
     this.addPlayerCamera();
@@ -69,7 +69,6 @@ module.exports = class Scene extends babylon.Scene
     ssao.totalStrength = 1.0;
     ssao.base = 0.5;
 
-    // Attach camera to the SSAO render pipeline
     this.postProcessRenderPipelineManager.attachCamerasToRenderPipeline("ssao", this.activeCamera);
     this.clearColor = c(214, 216, 245);
     this.ambientColor = c(50, 20, 15);

@@ -1,7 +1,13 @@
 'use strict';
 
-let Entity = require('./Entity');
-let Random = require('../utilities/Random');
+let
+  Entity = require('./Entity'),
+  Random = require('../utilities/Random'),
+  Vector = require('../utilities/Vector'),
+  MeshComponent = require('./components/MeshComponent'),
+  BoxCollisionComponent = require('./components/BoxCollisionComponent')
+;
+
 
 module.exports = class Tree extends Entity
 {
@@ -26,5 +32,20 @@ module.exports = class Tree extends Entity
     this.scaling.z = scaling;
 
     this.visible = true;
+  }
+
+  static create(id)
+  {
+    let tree = new Tree(id);
+
+    tree
+      .addComponent(new MeshComponent('tree-1'))
+      .addComponent(new BoxCollisionComponent({
+        scaling: new Vector(.2, 4, .2),
+        offset: new Vector(0, .4, 0)
+      }))
+      .update();
+
+    return tree;
   }
 }

@@ -2,25 +2,24 @@
 
 let
   Assets    = require('../../assets/Assets'),
-  Component = require('./Component'),
-  Random    = require('../../utilities/Random'),
-  v         = require('../../utilities/Vector')
+  Component = require('./Component')
 ;
 
 module.exports = class MeshComponent extends Component
 {
-  constructor(meshName)
+  constructor(meshName, options = {})
   {
     super();
-    this.asset = Assets.get(meshName);
-    this.asset.checkCollisions = false;
+
+    this.mesh = Assets.mesh(meshName);
+    this.mesh.checkCollisions = !!options.collision;
   }
 
   update()
   {
-    this.asset.scaling = this.entity.scaling;
-    this.asset.position = this.entity.position;
-    this.asset.rotation = this.entity.rotation;
-    this.asset.isVisible = this.entity.visible;
+    this.mesh.scaling = this.entity.scaling;
+    this.mesh.position = this.entity.position;
+    this.mesh.rotation = this.entity.rotation;
+    this.mesh.isVisible = this.entity.visible;
   }
 }

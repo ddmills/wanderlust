@@ -10,7 +10,7 @@ module.exports = class BoxCollisionComponent extends CollisionComponent
   constructor(options)
   {
     super(options);
-    this.asset = Assets.get('box');
+    this.asset = Assets.mesh('box');
   }
 
 }

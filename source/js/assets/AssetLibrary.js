@@ -9,19 +9,36 @@ module.exports = class AssetLibrary
   constructor(scene)
   {
     this.scene = scene;
-    this.assets = {};
+    this.meshAssets = {};
+    this.materialAssets = {};
+    this.lampAssets = {};
     this.loader = new Loader(this, this.scene);
   }
 
-  register(name, asset)
+  registerMesh(name, mesh)
   {
-    this.assets[name] = asset;
+    this.meshAssets[name] = mesh;
   }
 
-  get(name)
+  registerMaterial(name, material)
   {
-    let asset = this.assets[name];
-    return asset.createInstance(name);
+    this.materialAssets[name] = material;
+  }
+
+  mesh(name)
+  {
+    let mesh = this.meshAssets[name];
+    return mesh.createInstance(name);
+  }
+
+  material(name)
+  {
+    return this.materialAssets[name];
+  }
+
+  lamp(name)
+  {
+    return this.lampAssets[name];
   }
 
   load()
