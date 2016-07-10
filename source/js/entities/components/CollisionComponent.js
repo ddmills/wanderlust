@@ -17,12 +17,22 @@ module.exports = class CollisionComponent extends Component
     this.offset = options.offset;
   }
 
-  update()
+  onAttach()
   {
+    this.active = this.entity.active;
+
     this.asset.checkCollisions = true;
-    this.asset.showBoundingBox = true;
     this.asset.isVisible = false;
 
+    this.matchEntityPhysical();
+
+    if (this.active) {
+      this.update = this.matchEntityPhysical;
+    }
+  }
+
+  matchEntityPhysical(time)
+  {
     this.asset.scaling = Vector.Hadamard(this.scaling, this.entity.scaling);
     this.asset.position = this.entity.position;
     this.asset.rotation = this.entity.rotation;

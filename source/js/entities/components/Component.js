@@ -6,9 +6,14 @@ module.exports = class Component
   constructor()
   {
     this.entity = null;
+    this.active = false;
   }
 
-  update()
+  onAttach()
+  {
+  }
+
+  update(time)
   {
   }
 

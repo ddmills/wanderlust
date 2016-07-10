@@ -15,13 +15,14 @@ module.exports = class Ghost extends Entity
   {
     super(id);
 
+    this.visible = true;
+    this.active = true;
+
     this.random = new Random(this.id);
 
     this.position.x = this.random.int(-50, 50);
     this.position.y = 2;
     this.position.z = this.random.int(-50, 50);
-
-    this.visible = true;
   }
 
   update()
@@ -36,9 +37,9 @@ module.exports = class Ghost extends Entity
   {
     let ghost = new Ghost(id);
 
-    ghost
-      .addComponent(new MeshComponent('box'))
-      .update();
+    ghost.addComponent(new MeshComponent({
+      meshAsset: 'box'
+    }));
 
     return ghost;
   }

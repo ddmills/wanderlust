@@ -42,8 +42,14 @@ io.on('connection', (socket) => {
 
   socket.on('room.join', (data) => {
     let name = data.name;
-    let room = rooms[name];
     let client = clients[socket.id];
+    let room = rooms[name];
+
+    if (!room) {
+      room = new Room(name);
+      rooms[name] = room;
+      console.log(`[${socket.id}]`, `room created - '${name}'`);
+    }
 
     console.log(`[${socket.id}]`, `joined room - ${name}`);
     room.join(client, socket);

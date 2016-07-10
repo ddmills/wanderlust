@@ -19,9 +19,10 @@ module.exports = class Ground extends Entity
   {
     let ground = new Ground(id);
 
-    ground
-      .addComponent(new MeshComponent('ground', { collision : true }))
-      .update();
+    ground.addComponent(new MeshComponent({
+      meshAsset: 'ground',
+      collision : true
+    }));
 
     return ground;
   }

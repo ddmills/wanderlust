@@ -12,6 +12,26 @@ module.exports = class Scene extends babylon.Scene
   {
     super(engine);
     this.engine = engine;
+
+    this.addSun();
+    this.addPlayerCamera();
+
+    var ssaoRatio = {
+      ssaoRatio: 0.5, // Ratio of the SSAO post-process, in a lower resolution
+      combineRatio: 1.0 // Ratio of the combine post-process (combines the SSAO and the scene)
+    };
+
+    var ssao = new babylon.SSAORenderingPipeline("ssao", this, ssaoRatio);
+    ssao.fallOff = 0.000001;
+    ssao.area = 1;
+    ssao.radius = 0.0001;
+    ssao.totalStrength = 1.0;
+    ssao.base = 0.5;
+
+    this.postProcessRenderPipelineManager.attachCamerasToRenderPipeline("ssao", this.activeCamera);
+    this.clearColor = c(214, 216, 245);
+    this.ambientColor = c(50, 20, 15);
+    this.collisionsEnabled = true;
   }
 
   addSun()
@@ -54,25 +74,7 @@ module.exports = class Scene extends babylon.Scene
     // sphere.position.y = 1
     // sphere.position.z = 1
 
-    this.addSun();
-    this.addPlayerCamera();
 
-    var ssaoRatio = {
-      ssaoRatio: 0.5, // Ratio of the SSAO post-process, in a lower resolution
-      combineRatio: 1.0 // Ratio of the combine post-process (combines the SSAO and the scene)
-    };
-
-    var ssao = new babylon.SSAORenderingPipeline("ssao", this, ssaoRatio);
-    ssao.fallOff = 0.000001;
-    ssao.area = 1;
-    ssao.radius = 0.0001;
-    ssao.totalStrength = 1.0;
-    ssao.base = 0.5;
-
-    this.postProcessRenderPipelineManager.attachCamerasToRenderPipeline("ssao", this.activeCamera);
-    this.clearColor = c(214, 216, 245);
-    this.ambientColor = c(50, 20, 15);
-    this.collisionsEnabled = true;
   }
 
 }

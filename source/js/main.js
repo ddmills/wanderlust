@@ -1,7 +1,6 @@
 'use strict';
 
 let
-  roomname = 'wander',
   GameFactory = require('./Game/GameFactory'),
   EntityFactory = require('./entities/EntityFactory'),
   game = GameFactory.create()

@@ -39,12 +39,13 @@ module.exports = class Tree extends Entity
     let tree = new Tree(id);
 
     tree
-      .addComponent(new MeshComponent('tree-1'))
+      .addComponent(new MeshComponent({
+        meshAsset: 'tree-1'
+      }))
       .addComponent(new BoxCollisionComponent({
         scaling: new Vector(.2, 4, .2),
         offset: new Vector(0, .4, 0)
-      }))
-      .update();
+      }));
 
     return tree;
   }

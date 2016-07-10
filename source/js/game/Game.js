@@ -30,18 +30,6 @@ module.exports = class Game extends EventEmitter
     return babylon.Engine.isSupported();
   }
 
-  load()
-  {
-    return this.client.connect()
-      .then(this.assets.load.bind(this.assets))
-      .then(this.room.create('wander'))
-      .then(this.room.join('wander'))
-      .then(() => {
-        this.scene.populate();
-        this.emit('loaded');
-      });
-  }
-
   startLoop()
   {
     this.engine.runRenderLoop(this.loop.bind(this));
@@ -56,9 +44,11 @@ module.exports = class Game extends EventEmitter
 
   start()
   {
-    this
-      .load()
-      .then(this.startLoop.bind(this));
+    return this.client.connect()
+      .then(() => this.assets.load())
+      .then(() => this.room.join('wander'))
+      // .then(() => this.scene.populate())
+      .then(() => this.startLoop());
   }
 
   stop()

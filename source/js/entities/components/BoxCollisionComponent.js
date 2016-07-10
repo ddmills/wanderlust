@@ -7,6 +7,7 @@ let
 
 module.exports = class BoxCollisionComponent extends CollisionComponent
 {
+
   constructor(options)
   {
     super(options);
