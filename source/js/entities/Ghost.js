@@ -3,8 +3,10 @@
 let
   Entity = require('./Entity'),
   Random = require('../utilities/Random'),
+  Vector = require('../utilities/Vector'),
   MeshComponent = require('./components/MeshComponent'),
-  WanderBehavior = require('./behaviors/WanderBehavior')
+  WanderComponent = require('./components/WanderComponent'),
+  LERPComponent = require('./components/LERPComponent')
 ;
 
 
@@ -18,10 +20,7 @@ module.exports = class Ghost extends Entity
     this.active = true;
 
     this.random = new Random(this.id);
-
-    this.position.x = this.random.int(-50, 50);
-    this.position.y = 2;
-    this.position.z = this.random.int(-50, 50);
+    this.position = new Vector(this.random.int(-50, 50), 2, this.random.int(-50, 50));
   }
 
   static create(id)
@@ -29,8 +28,9 @@ module.exports = class Ghost extends Entity
     let ghost = new Ghost(id);
 
     ghost
-      .addComponent(new MeshComponent({ meshAsset: 'box' }))
-      .addComponent(new WanderBehavior());
+      .addComponent(new WanderComponent())
+      .addComponent(new LERPComponent())
+      .addComponent(new MeshComponent({ meshAsset: 'box' }));
 
     return ghost;
   }

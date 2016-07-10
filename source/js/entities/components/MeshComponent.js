@@ -15,22 +15,36 @@ module.exports = class MeshComponent extends Component
     this.mesh.checkCollisions = !!options.collision;
   }
 
-  matchEntityPhysical(time)
+  updateScaling(value)
   {
-    this.mesh.scaling = this.entity.scaling;
-    this.mesh.position = this.entity.position;
-    this.mesh.rotation = this.entity.rotation;
-    this.mesh.isVisible = this.entity.visible;
+    this.mesh.scaling = value.current;
+  }
+
+  updatePosition(value)
+  {
+    this.mesh.position = value.current;
+  }
+
+  updateRotation(value)
+  {
+    this.mesh.rotation = value.current;
+  }
+
+  updateVisible(value)
+  {
+    this.mesh.isVisible = value.current;
   }
 
   onAttach()
   {
-    this.active = this.entity.active;
+    this.mesh.position = this.entity.position;
+    this.mesh.scaling = this.entity.scaling;
+    this.mesh.rotation = this.entity.rotation;
+    this.mesh.isVisible = this.entity.visible;
 
-    this.matchEntityPhysical();
-
-    if (this.active) {
-      this.update = this.matchEntityPhysical;
-    }
+    this.entity.on('change-position', this.updatePosition.bind(this));
+    this.entity.on('change-scaling', this.updateScaling.bind(this));
+    this.entity.on('change-rotation', this.updateRotation.bind(this));
+    this.entity.on('change-visible', this.updateVisible.bind(this));
   }
 }
