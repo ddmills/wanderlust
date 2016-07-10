@@ -1,12 +1,11 @@
 'use strict';
 
 let
-  Assets    = require('../../assets/Assets'),
   Component = require('./Component'),
-  Random    = require('../../utilities/Random'),
-  Vector    = require('../../utilities/Vector'),
-  babylon   = require('babylon')
+  Vector = require('../../utilities/Vector'),
+  babylon = require('babylon')
 ;
+
 
 module.exports = class CollisionComponent extends Component
 {

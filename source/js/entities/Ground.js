@@ -21,7 +21,7 @@ module.exports = class Ground extends Entity
 
     ground.addComponent(new MeshComponent({
       meshAsset: 'ground',
-      collision : true
+      collision: true
     }));
 
     return ground;

@@ -8,7 +8,6 @@ let
 
 module.exports = class EntityFactory
 {
-
   constructor(seed = 0)
   {
     this.id = seed;
@@ -31,5 +30,4 @@ module.exports = class EntityFactory
 
     return entityInstance;
   }
-
 }

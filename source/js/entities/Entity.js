@@ -2,9 +2,9 @@
 
 let Vector = require('../utilities/Vector');
 
+
 module.exports = class Entity
 {
-
   constructor(id)
   {
     this.id = id;
@@ -35,8 +35,7 @@ module.exports = class Entity
   update(time)
   {
     for (let component of this.activeComponents) {
-      component.update(time);
+      component.rateUpdate(time);
     }
   }
-
 }

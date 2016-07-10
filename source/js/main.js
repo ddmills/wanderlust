@@ -1,20 +1,14 @@
 'use strict';
 
-let
-  GameFactory = require('./Game/GameFactory'),
-  EntityFactory = require('./entities/EntityFactory'),
-  game = GameFactory.create()
-;
+let game = require('./Game/GameFactory').create();
 
-
-let entities = new EntityFactory(0);
+let entities = game.entities;
 
 game.on('started', () => {
-  let ground = entities.create('ground');
+  entities.create('ground');
 
   for (let i = 0; i < 12; i++) {
-    let ghost = entities.create('ghost');
-    game.on('tick', ghost.update.bind(ghost));
+    entities.create('ghost');
   }
 
   for (let i = 0; i < 200; i++) {

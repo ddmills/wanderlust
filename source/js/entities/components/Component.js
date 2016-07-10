@@ -2,19 +2,28 @@
 
 module.exports = class Component
 {
-
   constructor()
   {
     this.entity = null;
     this.active = false;
+
+    this.lastUpdate = 0;
+    this.updateRate = 0;
+    this.updateCounter = 0;
   }
 
-  onAttach()
+  onAttach() { }
+
+  update(time) { }
+
+  rateUpdate(time)
   {
-  }
+    this.lastUpdate = time.now;
+    this.updateCounter += time.delta;
 
-  update(time)
-  {
+    if (this.updateCounter >= this.updateRate) {
+      this.updateCounter -= this.updateRate;
+      this.update(time);
+    }
   }
-
 }

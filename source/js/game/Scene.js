@@ -7,7 +7,6 @@ let
 
 module.exports = class Scene extends babylon.Scene
 {
-
   constructor(engine)
   {
     super(engine);
@@ -50,31 +49,4 @@ module.exports = class Scene extends babylon.Scene
   {
     this.activeCamera = new Camera(this, this.engine.getRenderingCanvas());
   }
-
-  add(component)
-  {
-    component.add(this);
-  }
-
-  populate()
-  {
-    // for (let i = 0; i < 15; i ++) {
-    //   let cyl = babylon.Mesh.CreateCylinder("cylinder", i, 1, 1, 12, 1, this, true);
-    //
-    //   let x = (Math.random() - .5) * 20;
-    //   let z = (Math.random() - .5) * 20
-    //
-    //   cyl.position.x = x;
-    //   cyl.position.z = z
-    //   cyl.position.y = .5;
-    //   cyl.checkCollisions = true;
-    // }
-
-    // let sphere = babylon.Mesh.CreateSphere("sphere", 16, 1, this);
-    // sphere.position.y = 1
-    // sphere.position.z = 1
-
-
-  }
-
 }

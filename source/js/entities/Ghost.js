@@ -3,9 +3,8 @@
 let
   Entity = require('./Entity'),
   Random = require('../utilities/Random'),
-  Vector = require('../utilities/Vector'),
   MeshComponent = require('./components/MeshComponent'),
-  BoxCollisionComponent = require('./components/BoxCollisionComponent')
+  WanderBehavior = require('./behaviors/WanderBehavior')
 ;
 
 
@@ -25,21 +24,13 @@ module.exports = class Ghost extends Entity
     this.position.z = this.random.int(-50, 50);
   }
 
-  update()
-  {
-    this.position.x += this.random.float - .5;
-    this.position.z += this.random.float - .5;
-
-    super.update();
-  }
-
   static create(id)
   {
     let ghost = new Ghost(id);
 
-    ghost.addComponent(new MeshComponent({
-      meshAsset: 'box'
-    }));
+    ghost
+      .addComponent(new MeshComponent({ meshAsset: 'box' }))
+      .addComponent(new WanderBehavior());
 
     return ghost;
   }

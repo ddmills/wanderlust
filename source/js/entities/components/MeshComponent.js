@@ -1,7 +1,7 @@
 'use strict';
 
 let
-  Assets    = require('../../assets/Assets'),
+  Assets = require('../../assets/Assets'),
   Component = require('./Component')
 ;
 

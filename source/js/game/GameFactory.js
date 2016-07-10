@@ -6,6 +6,8 @@ let
   Client        = require('../network/Client'),
   Room          = require('../room/Room'),
   EngineFactory = require('./EngineFactory'),
+  EntityFactory = require('../entities/EntityFactory'),
+  EntitySystem  = require('../entities/EntitySystem'),
   AssetLibrary  = require('../assets/AssetLibrary'),
   Assets        = require('../assets/Assets'),
   Color         = require('../utilities/Color'),
@@ -15,13 +17,12 @@ let
 
 module.exports = class GameFactory
 {
-
   static create()
   {
     let canvas = document.getElementById('game-area');
     let engine = EngineFactory.create(canvas);
     let client = new Client();
-    let scene  = new Scene(engine);
+    let scene = new Scene(engine);
     let assets = new AssetLibrary(scene);
 
 
@@ -42,11 +43,13 @@ module.exports = class GameFactory
     ground.isVisible = false;
     assets.registerMesh('ground', ground);
 
-    let room   = new Room(client);
+    let room = new Room(client);
+
+    let entityFactory = new EntityFactory(0);
+    let entitySystem = new EntitySystem(entityFactory);
 
     Assets.initialize(assets);
 
-    return new Game(engine, client, canvas, scene, assets, room);
+    return new Game(engine, client, canvas, scene, assets, room, entitySystem);
   }
-
 }
