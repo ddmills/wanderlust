@@ -43,10 +43,10 @@ module.exports = class GameFactory
     ground.isVisible = false;
     assets.registerMesh('ground', ground);
 
-    let world = new World(client);
 
-    let entityFactory = new EntityFactory(0);
+    let entityFactory = new EntityFactory();
     let entitySystem = new EntitySystem(entityFactory);
+    let world = new World(client, entitySystem);
 
     Assets.initialize(assets);
 

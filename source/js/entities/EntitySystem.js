@@ -9,9 +9,9 @@ module.exports = class EntitySystem
     this.entities = [];
   }
 
-  create(name, options)
+  create(name, id, options)
   {
-    let entity = this.entityFactory.create(name, options);
+    let entity = this.entityFactory.create(name, id, options);
     this.entities.push(entity);
     return this;
   }

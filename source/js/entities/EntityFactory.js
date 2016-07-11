@@ -8,9 +8,8 @@ let
 
 module.exports = class EntityFactory
 {
-  constructor(seed = 0)
+  constructor()
   {
-    this.id = seed;
     this.entities = {};
 
     this.register('tree', Tree);
@@ -23,10 +22,10 @@ module.exports = class EntityFactory
     this.entities[name] = entity;
   }
 
-  create(name, options)
+  create(name, id, options)
   {
     let EntityClass = this.entities[name];
-    let entityInstance = EntityClass.create(++this.id, options);
+    let entityInstance = EntityClass.create(id, options);
 
     return entityInstance;
   }

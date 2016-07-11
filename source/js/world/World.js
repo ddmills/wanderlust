@@ -6,24 +6,22 @@ let
 module.exports = class World extends EventEmitter
 {
 
-  constructor(client)
+  constructor(client, entities)
   {
     super();
     this.client = client;
+    this.state = {};
+    this.localState = {};
+    this.entities = entities;
   }
 
-  create(name)
+  initializeLocal(state)
   {
-    let deferred = Q.defer();
+    this.localState = state;
 
-    this.client.send('world.create', { name });
-
-    this.client.on('world.created', (data) => {
-      this.emit('joined', data);
-      deferred.resolve(data);
-    });
-
-    return deferred.promise;
+    for (let entity of this.localState.entities) {
+      this.entities.create(entity.name, entity.id, entity.options);
+    }
   }
 
   join(name)
@@ -32,6 +30,7 @@ module.exports = class World extends EventEmitter
 
     this.client.send('world.join', { name });
     this.client.on('world.joined', (data) => {
+      this.initializeLocal(data.localState);
       this.emit('joined', data);
       deferred.resolve(data);
     });
