@@ -19,7 +19,7 @@ npm -v
 
 ```
 npm install
-npm run build
+npm run gulp
 npm start
 ```
 
