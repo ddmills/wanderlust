@@ -8,7 +8,7 @@ let
 
 module.exports = class Entity extends EventEmitter
 {
-  constructor(id)
+  constructor(id, configuration)
   {
     super();
 
@@ -22,6 +22,15 @@ module.exports = class Entity extends EventEmitter
     this._scaling = new Vector(1, 1, 1);
     this._rotation = new Vector(0, 0, 0);
     this._position = new Vector(0, 0, 0);
+
+    this.applyConfiguration(configuration);
+  }
+
+  applyConfiguration(configuration)
+  {
+    for (let component of this.components) {
+      component.applyConfiguration(configuration);
+    }
   }
 
   addComponent(component)

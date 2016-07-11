@@ -8,16 +8,16 @@ let
 
 module.exports = class Ground extends Entity
 {
-  constructor(id)
+  constructor(id, configuration)
   {
-    super(id);
+    super(id, configuration);
 
     this.visible = true;
   }
 
-  static create(id)
+  static create(id, configuration)
   {
-    let ground = new Ground(id);
+    let ground = new Ground(id, configuration);
 
     ground.addComponent(new MeshComponent({
       meshAsset: 'ground',

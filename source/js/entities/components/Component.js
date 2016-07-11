@@ -12,6 +12,8 @@ module.exports = class Component
     this.updateCounter = 0;
   }
 
+  applyConfiguration(configuration) { }
+
   onAttach() { }
 
   update(time) { }

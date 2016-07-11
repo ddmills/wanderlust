@@ -11,6 +11,16 @@ let
 let clients = {};
 let worlds = {};
 
+
+function synchronize() {
+  for (let world in worlds) {
+    worlds[world].update();
+    io.to(world).emit('world.synchronize', worlds[world].state);
+  }
+}
+
+setInterval(synchronize, process.env.SYNC_RATE);
+
 io.on('connection', (socket) => {
   clients[socket.id] = socket;
   console.log(`[${socket.id}]`, `connected - ${Object.keys(clients).length} players`);

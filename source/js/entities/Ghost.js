@@ -5,16 +5,16 @@ let
   Random = require('../utilities/Random'),
   Vector = require('../utilities/Vector'),
   MeshComponent = require('./components/MeshComponent'),
-  WanderComponent = require('./components/WanderComponent'),
-  LERPComponent = require('./components/LERPComponent')
+  LERPComponent = require('./components/LERPComponent'),
+  RemoteControllerComponent = require('./components/RemoteControllerComponent')
 ;
 
 
 module.exports = class Ghost extends Entity
 {
-  constructor(id)
+  constructor(id, configuration)
   {
-    super(id);
+    super(id, configuration);
 
     this.visible = true;
     this.active = true;
@@ -23,12 +23,12 @@ module.exports = class Ghost extends Entity
     this.position = new Vector(this.random.int(-50, 50), 2, this.random.int(-50, 50));
   }
 
-  static create(id)
+  static create(id, configuration)
   {
-    let ghost = new Ghost(id);
+    let ghost = new Ghost(id, configuration);
 
     ghost
-      .addComponent(new WanderComponent())
+      .addComponent(new RemoteControllerComponent())
       .addComponent(new LERPComponent())
       .addComponent(new MeshComponent({ meshAsset: 'box' }));
 

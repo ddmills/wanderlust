@@ -11,9 +11,9 @@ let
 
 module.exports = class Tree extends Entity
 {
-  constructor(id)
+  constructor(id, configuration)
   {
-    super(id);
+    super(id, configuration);
 
     let random = new Random(this.id);
 
@@ -26,9 +26,9 @@ module.exports = class Tree extends Entity
     this.visible = true;
   }
 
-  static create(id)
+  static create(id, configuration)
   {
-    let tree = new Tree(id);
+    let tree = new Tree(id, configuration);
 
     tree
       .addComponent(new MeshComponent({ meshAsset: 'tree-1' }))
