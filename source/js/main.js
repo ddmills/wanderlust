@@ -3,6 +3,7 @@
 let game = require('./Game/GameFactory').create();
 
 let entities = game.entities;
+let client = game.client;
 
 game.on('started', () => {
   entities.create('ground');
@@ -14,6 +15,11 @@ game.on('started', () => {
   for (let i = 0; i < 200; i++) {
     entities.create('tree');
   }
+
+  client.on('entity:spawn', (type, options) => {
+    console.log('spawn', type);
+  });
+
 });
 
 game.start();

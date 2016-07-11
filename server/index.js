@@ -5,11 +5,11 @@ require('dotenv').config();
 let
   app  = require('./file-server').start(),
   io   = require('socket.io')(app),
-  Room = require('./Room')
+  World = require('./World')
 ;
 
 let clients = {};
-let rooms = {};
+let worlds = {};
 
 io.on('connection', (socket) => {
   clients[socket.id] = socket;
@@ -18,47 +18,47 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     delete clients[socket.id];
 
-    let room = rooms[socket.room];
-    if (room) room.leave(socket);
+    let world = worlds[socket.world];
+    if (world) world.leave(socket);
 
     console.log(`[${socket.id}]`, `disconnected - ${Object.keys(clients).length} players`);
   });
 
-  socket.on('room.create', (data) => {
+  socket.on('world.create', (data) => {
     let name = data.name;
 
-    if (rooms[name]) {
-      console.log(`[${socket.id}]`, `error - Room '${name}' already exists`);
-      socket.emit('room.error', { 'message' : `Room '${name}' already exists` });
+    if (worlds[name]) {
+      console.log(`[${socket.id}]`, `error - World '${name}' already exists`);
+      socket.emit('world.error', { 'message' : `World '${name}' already exists` });
       return;
     }
 
-    let room = new Room(name);
-    rooms[name] = room;
-    console.log(`[${socket.id}]`, `room created - '${name}'`);
+    let world = new World(name);
+    worlds[name] = world;
+    console.log(`[${socket.id}]`, `world created - '${name}'`);
 
-    socket.emit('room.created', data);
+    socket.emit('world.created', data);
   });
 
-  socket.on('room.join', (data) => {
+  socket.on('world.join', (data) => {
     let name = data.name;
     let client = clients[socket.id];
-    let room = rooms[name];
+    let world = worlds[name];
 
-    if (!room) {
-      room = new Room(name);
-      rooms[name] = room;
-      console.log(`[${socket.id}]`, `room created - '${name}'`);
+    if (!world) {
+      world = new World(name);
+      worlds[name] = world;
+      console.log(`[${socket.id}]`, `world created - '${name}'`);
     }
 
-    console.log(`[${socket.id}]`, `joined room - ${name}`);
-    room.join(client, socket);
+    console.log(`[${socket.id}]`, `joined world - ${name}`);
+    world.join(client, socket);
   });
 
-  socket.on('room.leave', (data) => {
-    let room = rooms[socket.room];
+  socket.on('world.leave', (data) => {
+    let world = worlds[socket.world];
     let client = clients[socket.id];
 
-    if (room) room.leave(client, socket);
+    if (world) world.leave(client, socket);
   });
 });

@@ -13,7 +13,7 @@ module.exports = class Camera extends babylon.FreeCamera
 
     this.checkCollisions = true;
     this.applyGravity = true;
-    this.ellipsoid = new Vector(.25, .4, .25);
+    this.ellipsoid = new Vector(.4, .5, .4);
     this.minZ = .1;
 
     this.keysUp = [87]; // W

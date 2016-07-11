@@ -4,7 +4,7 @@ let
   Game          = require('./Game'),
   Scene         = require('./Scene'),
   Client        = require('../network/Client'),
-  Room          = require('../room/Room'),
+  World          = require('../world/World'),
   EngineFactory = require('./EngineFactory'),
   EntityFactory = require('../entities/EntityFactory'),
   EntitySystem  = require('../entities/EntitySystem'),
@@ -43,13 +43,13 @@ module.exports = class GameFactory
     ground.isVisible = false;
     assets.registerMesh('ground', ground);
 
-    let room = new Room(client);
+    let world = new World(client);
 
     let entityFactory = new EntityFactory(0);
     let entitySystem = new EntitySystem(entityFactory);
 
     Assets.initialize(assets);
 
-    return new Game(engine, client, canvas, scene, assets, room, entitySystem);
+    return new Game(engine, client, canvas, scene, assets, world, entitySystem);
   }
 }

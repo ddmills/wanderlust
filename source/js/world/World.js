@@ -3,7 +3,7 @@ let
   Q = require('q')
 ;
 
-module.exports = class Room extends EventEmitter
+module.exports = class World extends EventEmitter
 {
 
   constructor(client)
@@ -16,9 +16,9 @@ module.exports = class Room extends EventEmitter
   {
     let deferred = Q.defer();
 
-    this.client.send('room.create', { name });
+    this.client.send('world.create', { name });
 
-    this.client.on('room.created', (data) => {
+    this.client.on('world.created', (data) => {
       this.emit('joined', data);
       deferred.resolve(data);
     });
@@ -30,8 +30,8 @@ module.exports = class Room extends EventEmitter
   {
     let deferred = Q.defer();
 
-    this.client.send('room.join', { name });
-    this.client.on('room.joined', (data) => {
+    this.client.send('world.join', { name });
+    this.client.on('world.joined', (data) => {
       this.emit('joined', data);
       deferred.resolve(data);
     });

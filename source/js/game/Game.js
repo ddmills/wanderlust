@@ -13,7 +13,7 @@ let
 
 module.exports = class Game extends EventEmitter
 {
-  constructor(engine, client, canvas, scene, assets, room, entitySystem)
+  constructor(engine, client, canvas, scene, assets, world, entitySystem)
   {
     super();
 
@@ -22,7 +22,7 @@ module.exports = class Game extends EventEmitter
     this.canvas = canvas;
     this.scene = scene;
     this.assets = assets;
-    this.room = room;
+    this.world = world;
     this.entities = entitySystem;
 
     this.time = {
@@ -62,7 +62,7 @@ module.exports = class Game extends EventEmitter
   {
     return this.client.connect()
       .then(() => this.assets.load())
-      .then(() => this.room.join('wander'))
+      .then(() => this.world.join('wander'))
       .then(() => this.startLoop());
   }
 
