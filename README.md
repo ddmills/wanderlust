@@ -6,9 +6,13 @@ Multiplayer game using socket.io and babylonjs
 
 
 **requires**
+```
+node -v
+v4.4.7
 
-* Node v: 4.4.7
-* Npm v: 2.14.3
+npm -v
+2.14.3
+```
 
 
 **installation**
