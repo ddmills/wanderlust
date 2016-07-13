@@ -11,9 +11,9 @@
 'use strict';
 
 let
-  EventEmitter  = require('event-emitter-es6'),
-  SocketFactory = require('./SocketFactory'),
-  Q             = require('q')
+  Q = require('q'),
+  EventEmitter = require('event-emitter-es6'),
+  SocketFactory = require('./SocketFactory')
 ;
 
 module.exports = class Client extends EventEmitter

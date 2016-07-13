@@ -1,73 +1,59 @@
 'use strict';
 
+let EntitySystem = require('./entities/EntitySystem')
+
 module.exports = class World
 {
-  constructor(name)
+  constructor(name, entityFactory)
   {
     this.name = name;
     this.id = 0;
+    this.seed = 0;
+    this.entities = new EntitySystem(entityFactory);
 
-    this.state = {
-      seed: 0,
-      tick: 0,
-      entities:[]
-    };
-
-    this.staticState = {
-      seed: 0,
-      tick: 0,
-      entities: [{
-        id: ++this.id,
-        name: 'ground',
-        options: {}
-      }]
-    };
+    this.entities.create('ground', this.id++);
 
     for (let i = 0; i < 200; i++) {
-      this.staticState.entities.push({
-        id: ++this.id,
-        name: 'tree',
-        options: {}
-      });
+      this.entities.create('tree', this.id++);
     }
 
-    this.ghosts = [];
-    for (let i = 0; i < 25; i++) {
-      this.ghosts.push(this.addEntity('ghost', { position: { x: 0, y: 3, z: 0 } }));
+    for (let i = 0; i < 20; i++) {
+      this.entities.create('ghost', this.id++);
     }
+
+    this.time = {
+      tick: 0,
+      delta: 0,
+      now: Date.now()
+    };
   }
 
-  addEntity(name, options)
+  updateTime()
   {
-    options = options || {};
-    let id = ++this.id;
-    let e = { id, name, options };
-    this.state.entities.push(e);
-    return e;
+    let now = Date.now();
+    this.time.delta = (now - this.time.now) * process.env.CLOCK_SPEED;
+    this.time.now = now;
+    this.time.tick++;
   }
 
-  updateGhosts()
+  loop()
   {
-    this.ghosts.forEach((ghost) => {
-      let p = ghost.options.position;
-      p.x += Math.round(Math.random() * 10) - 5;
-      p.z += Math.round(Math.random() * 10) - 5;
-
-      p.x = p.x > 50 ? 50 : p.x;
-      p.x = p.x < -50 ? -50 : p.x;
-
-      p.z = p.z > 50 ? 50 : p.z;
-      p.z = p.z < -50 ? -50 : p.z;
-
-      ghost.options.position = p;
-    });
+    this.updateTime();
+    this.entities.update(this.time);
   }
 
-  update()
+  get state()
   {
-    this.updateGhosts();
-    this.state.tick++;
-    this.staticState.tick = this.state.tick;
+    return {
+      time: this.time,
+      seed: this.seed,
+      entities: this.entities.serialize()
+    };
+  }
+
+  get staticState()
+  {
+    return this.state;
   }
 
   join(client, socket)

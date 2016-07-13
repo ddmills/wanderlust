@@ -3,23 +3,34 @@
 require('dotenv').config();
 
 let
-  app  = require('./file-server').start(),
-  io   = require('socket.io')(app),
-  World = require('./World')
+  app = require('./file-server').start(),
+  io = require('socket.io')(app),
+  World = require('./World'),
+  EntityFactory = require('./entities/EntityFactory')
 ;
 
 let clients = {};
 let worlds = {};
+let entityFactory = new EntityFactory();
 
+function loop() {
+
+}
 
 function synchronize() {
   for (let world in worlds) {
-    worlds[world].update();
     io.to(world).emit('world.synchronize', worlds[world].state);
   }
 }
 
+function loop() {
+  for (let world in worlds) {
+    worlds[world].loop();
+  }
+}
+
 setInterval(synchronize, process.env.SYNC_RATE);
+setInterval(loop, process.env.LOOP_RATE);
 
 io.on('connection', (socket) => {
   clients[socket.id] = socket;
@@ -43,9 +54,9 @@ io.on('connection', (socket) => {
       return;
     }
 
-    let world = new World(name);
+    let world = new World(name, entityFactory);
     worlds[name] = world;
-    console.log(`[${socket.id}]`, `world created - '${name}'`);
+    console.log(`[${socket.id}]`, `world created - ${name}`);
 
     socket.emit('world.created', data);
   });
@@ -56,7 +67,7 @@ io.on('connection', (socket) => {
     let world = worlds[name];
 
     if (!world) {
-      world = new World(name);
+      world = new World(name, entityFactory);
       worlds[name] = world;
       console.log(`[${socket.id}]`, `world created - '${name}'`);
     }

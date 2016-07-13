@@ -26,7 +26,7 @@ module.exports = class World extends EventEmitter
         entity = this.spawnEntity(config);
       }
 
-      entity.applyConfiguration(config.options);
+      entity.applyConfiguration(config);
     }
   }
 

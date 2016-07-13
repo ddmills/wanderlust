@@ -8,7 +8,7 @@ let
 
 module.exports = class Entity extends EventEmitter
 {
-  constructor(id, configuration)
+  constructor(id)
   {
     super();
 
@@ -22,15 +22,24 @@ module.exports = class Entity extends EventEmitter
     this._scaling = new Vector(1, 1, 1);
     this._rotation = new Vector(0, 0, 0);
     this._position = new Vector(0, 0, 0);
-
-    this.applyConfiguration(configuration);
   }
 
-  applyConfiguration(configuration)
+  serialize()
   {
+    let data = {
+      id: this.id,
+      name: this.name,
+      visible: this._visible,
+      scaling: this._scaling.serialize(),
+      position: this._position.serialize(),
+      rotation: this._rotation.serialize()
+    };
+
     for (let component of this.components) {
-      component.applyConfiguration(configuration);
+      data = component.serialize(data);
     }
+
+    return data;
   }
 
   addComponent(component)
