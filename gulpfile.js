@@ -17,7 +17,7 @@ var
  * Transpile es6 code to es5 using Babel and browserify
  */
 gulp.task('transpile', function() {
-  return browserify('source/js/main.js', { debug : true })
+  return browserify('client/js/main.js', { debug : true })
     .transform('babelify', { presets: ['es2015'] })
     .transform(moduleShim)
     .bundle()
@@ -37,7 +37,7 @@ gulp.task('transpile', function() {
  * Copy non-browserify vendor dependencies to the build directory
  */
 gulp.task('vendor',  function() {
-  return gulp.src('./source/vendor/**/*')
+  return gulp.src('./client/vendor/**/*')
     .pipe(gulp.dest('./build/vendor'));
 });
 
@@ -53,7 +53,7 @@ gulp.task('resources',  function() {
  * Copy HTML files over
  */
 gulp.task('html', function() {
-  return gulp.src('source/**/*.html')
+  return gulp.src('client/**/*.html')
     .pipe(gulp.dest('./build'));
 });
 
@@ -61,7 +61,7 @@ gulp.task('html', function() {
  * Convert SASS files to CSS
  */
 gulp.task('sass', function() {
-  return gulp.src('source/sass/**/main.scss')
+  return gulp.src('client/sass/**/main.scss')
     .pipe(sass().on('error', sass.logError))
     .pipe(gulp.dest('./build'));
 });
@@ -70,10 +70,10 @@ gulp.task('sass', function() {
  * Watch for when JS, HTML, or SCSS files change so they can be updated
  */
 gulp.task('watch', function() {
-  gulp.watch('source/**/*.js', ['transpile']);
-  gulp.watch('source/**/*.html', ['html']);
-  gulp.watch('source/**/*.scss', ['sass']);
-  gulp.watch('source/vendor/**/*', ['vendor']);
+  gulp.watch('client/**/*.js', ['transpile']);
+  gulp.watch('client/**/*.html', ['html']);
+  gulp.watch('client/**/*.scss', ['sass']);
+  gulp.watch('client/vendor/**/*', ['vendor']);
   gulp.watch('resources/**/*', ['resources']);
 });
 
