@@ -12,13 +12,6 @@ let
 
 module.exports = class Tree extends Entity
 {
-  constructor(id, configuration)
-  {
-    super(id, configuration);
-    this.active = true;
-    this.visible = true;
-  }
-
   static create(id, configuration)
   {
     let tree = new Tree(id, configuration);

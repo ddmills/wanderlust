@@ -18,7 +18,7 @@ module.exports = class Entity extends EventEmitter
 
     this.active = false;
 
-    this._visible = true;
+    this.visible = true;
     this._scaling = new Vector(1, 1, 1);
     this._rotation = new Vector(0, 0, 0);
     this._position = new Vector(0, 0, 0);

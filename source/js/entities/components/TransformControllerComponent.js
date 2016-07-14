@@ -34,8 +34,6 @@ module.exports = class TransformControllerComponent extends Component
       );
     }
 
-    if (configuration.visible) {
-      this.entity.visible = configuration.visible;
-    }
+    this.entity.visible = !!configuration.visible;
   }
 }

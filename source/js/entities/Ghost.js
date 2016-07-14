@@ -12,14 +12,6 @@ let
 
 module.exports = class Ghost extends Entity
 {
-  constructor(id, configuration)
-  {
-    super(id, configuration);
-
-    this.visible = true;
-    this.active = true;
-  }
-
   static create(id, configuration)
   {
     let ghost = new Ghost(id, configuration);
