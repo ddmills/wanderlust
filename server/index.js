@@ -9,13 +9,10 @@ let
   EntityFactory = require('./entities/EntityFactory')
 ;
 
+
 let clients = {};
 let worlds = {};
 let entityFactory = new EntityFactory();
-
-function loop() {
-
-}
 
 function synchronize() {
   for (let world in worlds) {

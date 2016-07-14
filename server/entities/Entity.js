@@ -18,7 +18,7 @@ module.exports = class Entity extends EventEmitter
 
     this.active = false;
 
-    this._visible = true;
+    this.visible = true;
     this._scaling = new Vector(1, 1, 1);
     this._rotation = new Vector(0, 0, 0);
     this._position = new Vector(0, 0, 0);
@@ -29,7 +29,7 @@ module.exports = class Entity extends EventEmitter
     let data = {
       id: this.id,
       name: this.name,
-      visible: this._visible,
+      visible: this.visible,
       scaling: this._scaling.serialize(),
       position: this._position.serialize(),
       rotation: this._rotation.serialize()
