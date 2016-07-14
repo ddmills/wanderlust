@@ -17,12 +17,14 @@ module.exports = class Ground extends Entity
 
   static create(id, configuration)
   {
-    let ground = new Ground(id, configuration);
+    let ground = new Ground(id);
 
-    ground.addComponent(new MeshComponent({
-      meshAsset: 'ground',
-      collision: true
-    }));
+    ground
+      .addComponent(new MeshComponent({
+        meshAsset: 'ground',
+        collision: true
+      }))
+      .applyConfiguration(configuration);
 
     return ground;
   }

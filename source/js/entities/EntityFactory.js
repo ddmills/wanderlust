@@ -22,7 +22,7 @@ module.exports = class EntityFactory
     this.entities[name] = entity;
   }
 
-  create(name, id, options)
+  create(name, id, options = {})
   {
     let EntityClass = this.entities[name];
     let entityInstance = EntityClass.create(id, options);

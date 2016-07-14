@@ -53,7 +53,11 @@ module.exports = class World
 
   get staticState()
   {
-    return this.state;
+    return {
+      time: this.time,
+      seed: this.seed,
+      entities: this.entities.serializeStatic()
+    };
   }
 
   join(client, socket)

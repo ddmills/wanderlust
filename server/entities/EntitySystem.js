@@ -39,7 +39,22 @@ module.exports = class EntitySystem
     let data = [];
 
     for (let id in this.entities) {
-      data.push(this.entities[id].serialize());
+      if (this.entities[id].active) {
+        data.push(this.entities[id].serialize());
+      }
+    }
+
+    return data;
+  }
+
+  serializeStatic()
+  {
+    let data = [];
+
+    for (let id in this.entities) {
+      if (!this.entities[id].active) {
+        data.push(this.entities[id].serialize());
+      }
     }
 
     return data;

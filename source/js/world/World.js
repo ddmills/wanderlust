@@ -38,8 +38,8 @@ module.exports = class World extends EventEmitter
 
   spawnEntity(config)
   {
-    let { name, id, options } = config;
-    return this.entities.create(name, id, options);
+    let { name, id } = config;
+    return this.entities.create(name, id, config);
   }
 
   join(name)

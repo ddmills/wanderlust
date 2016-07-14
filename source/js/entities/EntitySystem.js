@@ -16,12 +16,12 @@ module.exports = class EntitySystem
 
   create(name, id, options)
   {
-    let entity = this.entityFactory.create(name, id, options);
-
     if (this.entities[id]) {
       console.log('entity already exists!', name, id, options);
       return this;
     }
+
+    let entity = this.entityFactory.create(name, id, options);
 
     this.entities[id] = entity;
     return entity;
